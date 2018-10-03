@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Origami Editor</title>
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+
+    
+    
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
+    
+
+   <script src='save.js'></script>
+    
+  <script>if (window.module) module = window.module;</script>
+
+
+
+
+
+
+
+</head>
+<body id="body">
+   
+
+        <!--ace-->
+
+         <div id="editor00">
+         <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+
+       <style type="text/css" media="screen">
+    body {
+        overflow: hidden;
+    }
+
+    #editor {
+        height:450px;
+        width: calc(100% - 633px);
+        margin-top:0px;
+        float: left;
+        /*font-family: 'Roboto Mono', monospace;*/
+    }
+
+  </style>
+
+<pre id="editor">
+&lt;!DOCTYPE HTML&gt;
+&lt;head&gt;
+
+
+
+&lt;/head&gt;
+&lt;body&gt;
+
+
+
+&lt;/body&gt;
+</pre>
+             
+             
+             
+             
+             <button class="save" onclick="save()">
+                 Save
+             </button>
+<button class="open" onclick="openFile()">
+                 Open
+             </button>
+             
+             <input type="file" id="fileToLoad">
+             
+          <style>
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background:transparent;
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #BDBDBD;
+    border-radius: 2.5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #9e9e9e;
+}
+</style>
+<div id="aceconf">
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/chrome");
+    editor.session.setMode("ace/mode/html");
+    editor.setOptions({
+  fontFamily: "Source Code Pro",
+  fontSize: "13px"
+});
+</script>
+</div>
+<script>
+    
+  
+   editor.commands.addCommand({
+name: 'saveFile',
+bindKey: {
+win: 'Ctrl-S',
+mac: 'Command-S',
+sender: 'editor|cli'
+},
+exec: function(env, args, request) {
+save()
+}
+});
+
+    
+    
+    
+    function save() {
+        var code = editor.getValue();
+
+        
+
+ 
+  var blob = new Blob([code], { type: "text/html;charset=utf-8" });
+  saveAs(blob, "index" + ".html");
+
+    
+
+    }
+function openFile(){
+    
+    
+    
+   
+	var fileToLoad = document.getElementById("fileToLoad").files[0];
+
+	var fileReader = new FileReader();
+	fileReader.onload = function(fileLoadedEvent) {
+        
+		var textFromFileLoaded = fileLoadedEvent.target.result;
+        
+		editor.setValue(textFromFileLoaded);
+	};
+	fileReader.readAsText(fileToLoad, "UTF-8");
+
+    
+    
+    
+    
+  
+}
+</script>
+
+</div>
+
+
+
+</body>
+</html>
